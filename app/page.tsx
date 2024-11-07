@@ -1,6 +1,6 @@
 "use client"
 import dynamic from 'next/dynamic'
-import SolarEfficiencySimulator from '../components/SolarEfficiencySimulator'
+import SolarEfficiencySimulator from '@/components/SolarEfficiencySimulator'
 
 export default function Home() {
   return (
