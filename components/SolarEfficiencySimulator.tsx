@@ -17,7 +17,7 @@ const SolarEfficiencySimulator = () => {
   const panelRatedPower = 575; // Panel rated power in Watts
   const averageDailyPeakHours = 5;
   
-  const calculateBulkDiscount = (numberOfCleanings) => {
+  const calculateBulkDiscount = (numberOfCleanings: number) => {
     if (numberOfCleanings <= 1) return 0;
     const maxDiscount = 0.4;
     const discount = (numberOfCleanings - 1) * (maxDiscount / 23);
