@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const SolarEfficiencySimulator = () => {
-  const [cleaningFrequency, setCleaningFrequency] = useState(6);
-  const [simulationMonths, setSimulationMonths] = useState(120);
-  const [cleaningEnabled, setCleaningEnabled] = useState(true);
+  const [cleaningFrequency, setCleaningFrequency] = useState<number>(6);
+  const [simulationMonths, setSimulationMonths] = useState<number>(120);
+  const [cleaningEnabled, setCleaningEnabled] = useState<boolean>(true);
   
   // Solar panel parameters
   const maxEfficiency = 100;
@@ -17,19 +17,19 @@ const SolarEfficiencySimulator = () => {
   const panelRatedPower = 575; // Panel rated power in Watts
   const averageDailyPeakHours = 5;
   
-  const calculateBulkDiscount = (numberOfCleanings: number) => {
+  const calculateBulkDiscount = (numberOfCleanings: number): number => {
     if (numberOfCleanings <= 1) return 0;
     const maxDiscount = 0.4;
     const discount = (numberOfCleanings - 1) * (maxDiscount / 23);
     return Math.min(maxDiscount, Math.max(0, discount));
   };
   
-  const calculateDailyEnergy = (efficiency, panelDegradation) => {
+  const calculateDailyEnergy = (efficiency: number, panelDegradation: number): number => {
     const actualEfficiency = efficiency * (1 - panelDegradation);
     return (panelRatedPower * (actualEfficiency / 100) * averageDailyPeakHours) / 1000;
   };
   
-  const generateData = () => {
+  const generateData = (): Array<{ [key: string]: number }> => {
     let data = [];
     let currentEfficiency = maxEfficiency;
     let monthsSinceLastCleaning = 0;
@@ -97,7 +97,7 @@ const SolarEfficiencySimulator = () => {
           <input
             type="checkbox"
             checked={cleaningEnabled}
-            onChange={(e) => setCleaningEnabled(e.target.checked)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCleaningEnabled(e.target.checked)}
             className="rounded"
           />
           <label>
@@ -114,7 +114,7 @@ const SolarEfficiencySimulator = () => {
               <input
                 type="range"
                 value={cleaningFrequency}
-                onChange={(e) => setCleaningFrequency(parseInt(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCleaningFrequency(parseInt(e.target.value))}
                 min={1}
                 max={12}
                 className="w-full"
@@ -128,7 +128,7 @@ const SolarEfficiencySimulator = () => {
             <input
               type="range"
               value={simulationMonths}
-              onChange={(e) => setSimulationMonths(parseInt(e.target.value))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSimulationMonths(parseInt(e.target.value))}
               min={12}
               max={240}
               step={12}
